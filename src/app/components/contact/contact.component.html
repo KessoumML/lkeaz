@@ -1,0 +1,46 @@
+<section class='get-in-touch' id='contact'>
+  <div class='container'>
+    <div class='row flex v-center h-center'>
+      <div class='column-8 column-md-10 column-sm-12'>
+        <h2>Contact</h2>
+        <h3>Want to work together?</h3>
+        <p>Just want to say hello ? Drop me a line below.</p>
+        <form class='pt-4' (submit)="onSubmit($event)">
+          <div class='row flex xs-flex-wrap sm-flex-wrap'>
+            <div class='column-6 column-sm-12 column-xs-12'>
+              <label>Name</label>
+              <input class='rounded-huge' name="name" [ngModel]="name" (ngModelChange)="name = $event"
+                     placeholder='Abraham, maybe?' type='text'/>
+            </div>
+            <div class='column-6 column-sm-12 column-xs-12'>
+              <label>Email</label>
+              <input class='rounded-huge' name="email" [ngModel]="email" (ngModelChange)="email = $event"
+                     placeholder='abraham@example.com' type='email'/>
+            </div>
+          </div>
+          <div class='row flex'>
+            <div class='column-12'>
+              <label>Phone</label>
+              <input class='rounded-huge' name="phone" [ngModel]="phone" (ngModelChange)="phone = $event"
+                     placeholder='optional' type='text'/>
+            </div>
+          </div>
+          <div class='row flex'>
+            <div class='column-12'>
+              <label>Message</label>
+              <textarea class='rounded-huge' name="message" [ngModel]="message" (ngModelChange)="message = $event"
+                        placeholder='Hey Mohamed! I am Abraham, maybe... '></textarea>
+              <button class='btn width-full rounded-huge' type='submit' [disabled]="disabled">Send</button>
+            </div>
+          </div>
+          <div class='row flex justify-around'>
+            <span class='display-2 text-default ' [class.hide]="!sending">Sending...</span>
+            <span class='display-2 text-green' [class.hide]="!success">Thank you! your message has been sent.</span>
+            <span class='display-2 text-red' [class.hide]="!error">Please verify your provided information</span>
+            <span class='display-2 text-red' [class.hide]="!wrong">Ops! something went wrong while sending your email.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
