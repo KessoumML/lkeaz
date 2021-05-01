@@ -15,7 +15,6 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Mohamed KESSOUM';
 
   private scrollOffset: number = 0
-  private popupOpenSubscription: Subscription = new Subscription;
   private popupCloseSubscription: Subscription = new Subscription;
 
   @HostListener('window:scroll', ['$event'])
@@ -43,13 +42,15 @@ export class AppComponent implements OnInit, OnDestroy {
     };
     WebFont.load(WebFontConfig);
 
-    this.popupOpenSubscription = this.ccService.popupOpen$.subscribe();
-    this.popupCloseSubscription = this.ccService.popupClose$.subscribe();
-
+    if (sessionStorage.cookie){
+      this.ccService.destroy();
+    }
+    this.popupCloseSubscription = this.ccService.popupClose$.subscribe(()=>{
+      sessionStorage.cookie = !0;
+    });
   }
 
   ngOnDestroy() {
-    this.popupOpenSubscription.unsubscribe();
     this.popupCloseSubscription.unsubscribe();
   }
 }
