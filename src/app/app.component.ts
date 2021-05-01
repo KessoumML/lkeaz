@@ -1,4 +1,8 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from "rxjs";
+import {
+  NgcCookieConsentService
+} from "ngx-cookieconsent";
 
 declare var WebFont: any;
 
@@ -7,10 +11,12 @@ declare var WebFont: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Mohamed KESSOUM';
 
   private scrollOffset: number = 0
+  private popupOpenSubscription: Subscription = new Subscription;
+  private popupCloseSubscription: Subscription = new Subscription;
 
   @HostListener('window:scroll', ['$event'])
   onScroll($event: any) {
@@ -20,6 +26,10 @@ export class AppComponent implements OnInit {
     } else {
       document.body.classList.remove("scrolled")
     }
+  }
+
+
+  constructor(private ccService: NgcCookieConsentService) {
   }
 
   ngOnInit(): void {
@@ -32,5 +42,14 @@ export class AppComponent implements OnInit {
       }
     };
     WebFont.load(WebFontConfig);
+
+    this.popupOpenSubscription = this.ccService.popupOpen$.subscribe();
+    this.popupCloseSubscription = this.ccService.popupClose$.subscribe();
+
+  }
+
+  ngOnDestroy() {
+    this.popupOpenSubscription.unsubscribe();
+    this.popupCloseSubscription.unsubscribe();
   }
 }

@@ -31,14 +31,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "scripts": [
+              "node_modules/cookieconsent/build/cookieconsent.min.js",
               "node_modules/isotope-layout/dist/isotope.pkgd.min.js",
               "node_modules/masonry-layout/dist/masonry.pkgd.min.js",
               "node_modules/imagesloaded/imagesloaded.pkgd.js",
               "node_modules/webfontloader/webfontloader.js",
               "src/assets/js/scripts.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "emailjs-com"
             ]
           },
           "configurations": {
